@@ -1,4 +1,5 @@
 import os
+from typing import Generator
 import sys
 from . import logs
 from .shells import shell
@@ -182,7 +183,7 @@ class Rule(object):
         except Exception:
             logs.rule_failed(self, sys.exc_info())
 
-    def get_corrected_commands(self, command):
+    def get_corrected_commands(self, command) -> Generator[CorrectedCommand, None, None]:
         """Returns generator with corrected commands.
 
         :type command: Command

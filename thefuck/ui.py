@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import sys
+
+from typing import Generator
 from .conf import settings
 from .exceptions import NoRuleMatched
 from .system import get_key
@@ -56,7 +58,7 @@ class CommandSelector(object):
         return self._commands[self._index]
 
 
-def select_command(corrected_commands):
+def select_command(corrected_commands: Generator[CorrectedCommand, None, None]):
     """Returns:
 
      - the first command when confirmation disabled;

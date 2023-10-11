@@ -1,11 +1,14 @@
+from typing import Generator, Iterable
 import sys
+
 from .conf import settings
+from thefuck.types import CorrectedCommand
 from .types import Rule
 from .system import Path
 from . import logs
 
 
-def get_loaded_rules(rules_paths):
+def get_loaded_rules(rules_paths) -> Generator[Rule, None, None]:
     """Yields all available rules.
 
     :type rules_paths: [Path]
@@ -37,7 +40,7 @@ def get_rules_import_paths():
                 yield contrib_rules
 
 
-def get_rules():
+def get_rules() -> Iterable[Rule]:
     """Returns all enabled rules.
 
     :rtype: [Rule]
@@ -49,7 +52,7 @@ def get_rules():
                   key=lambda rule: rule.priority)
 
 
-def organize_commands(corrected_commands):
+def organize_commands(corrected_commands: Generator[CorrectedCommand, None, None]) -> Generator[CorrectedCommand, None, None]:
     """Yields sorted commands without duplicates.
 
     :type corrected_commands: Iterable[thefuck.types.CorrectedCommand]
@@ -78,7 +81,7 @@ def organize_commands(corrected_commands):
         yield command
 
 
-def get_corrected_commands(command):
+def get_corrected_commands(command) -> Generator[CorrectedCommand, None, None]:
     """Returns generator with sorted and unique corrected commands.
 
     :type command: thefuck.types.Command
